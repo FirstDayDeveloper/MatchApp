@@ -9,6 +9,10 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    
+    
+    @IBOutlet weak var collectionView: UICollectionView!
+    
     let model = CardModel()
     var cardsArray = [Card]()
 
