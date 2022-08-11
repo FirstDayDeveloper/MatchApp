@@ -15,30 +15,31 @@ class CardModel {
         var generatedCards = [Card]()
         
     // create new array to keep track of generated cards
-        var noRepeatArr = [Int]()
+        //var noRepeatArr = [Int]()
         
     // randomly generate eight pairs of cards
-        while noRepeatArr.count <= 8 {
-        
-            // generate a random number
-            let randomNumber = Int.random(in: 1...13)
-            if noRepeatArr.contains(randomNumber) == false {
-                noRepeatArr.append(randomNumber)
-                // print(noRepeatArr)
-                noRepeatArr += [randomNumber]
-            }
+        for _ in 1...8 {
+    
+            //get a random number
             
-        // create two new card objects
+            let randomNumber = Int.random(in: 1...13)
+            
+            // create two new card objects
             let cardOne = Card()
             let cardTwo = Card()
             
-        // set their image names
+            // set their image names
             cardOne.imageName = "card\(randomNumber)"
             cardTwo.imageName = "card\(randomNumber)"
         
-    // add them to the array
+            // add them to the array
             generatedCards += [cardOne, cardTwo]
-            print(randomNumber)
+            
+            // log the random number
+            print("Random number is \(randomNumber)")
+            
+            // print the generated cards array count
+            print(generatedCards.count)
         
     // randomize the cards within the array
         generatedCards.shuffle()
