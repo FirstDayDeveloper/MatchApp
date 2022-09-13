@@ -89,7 +89,7 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
 }
 
     
-    // MARK: Game logic methods
+// MARK: Game logic methods
     
     func checkForMatch(_ secondFlippedCardIndex:IndexPath) {
         

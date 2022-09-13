@@ -34,7 +34,7 @@ class CardCollectionViewCell: UICollectionViewCell {
         }
         else {
             backImageView.alpha = 1
-            backImageView.alpha = 1
+            frontImageView.alpha = 1
         }
         
         if card.isFlipped == true {
