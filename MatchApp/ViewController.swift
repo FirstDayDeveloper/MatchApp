@@ -21,6 +21,8 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     var milliseconds:Int = 10 * 1000
     
     var firstFlippedCardIndex:IndexPath?
+    
+    var soundPlayer = SoundManager()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +39,12 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         timer = Timer.scheduledTimer(timeInterval: 0.001, target: self, selector: #selector(timerFired), userInfo: nil, repeats: true)
         RunLoop.main.add(timer!, forMode: .common)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        // Play the shuffle sound
+        soundPlayer.playSound(effect: .shuffle)
+        
     }
     
     // MARK: - Timer Methods
@@ -98,6 +106,13 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
     // Handling user tap events
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
+        // Check if there's any time remaining, don't let the user interact if the time remaining is zero.
+        if milliseconds <= 0 {
+            return
+            // the return keyword means no more code downwards will be executed
+        }
+        
+        
         // Get a reference to the cell that was tapped
         let cell = collectionView.cellForItem(at: indexPath) as? CardCollectionViewCell
         
@@ -106,6 +121,9 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
             
             // Flip the card up
             cell?.flipUp()
+            
+            // Play the flipping sound
+            soundPlayer.playSound(effect: .flip)
             
             // Check if this if the first or second card to be flipped
         if firstFlippedCardIndex == nil {
@@ -137,7 +155,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         
         // Compare the two cards
         if cardOne.imageName == cardTwo.imageName {
-            // It's a match
+            
+            // It's a match.
+            // Play the matching sound
+            soundPlayer.playSound(effect: .match)
             
             // Set the status and remove them
             cardOne.isMatched = true
@@ -153,6 +174,10 @@ class ViewController: UIViewController, UICollectionViewDataSource, UICollection
         }
         else {
             // It's not a match
+            
+            // Play the not a match sound
+            soundPlayer.playSound(effect: .nomatch)
+            
             cardOne.isFlipped = false
             cardTwo.isFlipped = false
             

@@ -11,6 +11,9 @@ class CardModel {
     
     func getCards() -> [Card] {
         
+    // declare an amepty array to store the numbers that we have generated
+        var generatedNumbers = [Int]()
+        
     // declare an empty array to store all the cards
         var generatedCards = [Card]()
         
@@ -18,34 +21,40 @@ class CardModel {
         //var noRepeatArr = [Int]()
         
     // randomly generate eight pairs of cards
-        for _ in 1...8 {
+        while generatedNumbers.count < 8 {
     
             //get a random number
             
             let randomNumber = Int.random(in: 1...13)
             
-            // create two new card objects
-            let cardOne = Card()
-            let cardTwo = Card()
+            if generatedNumbers.contains(randomNumber) == false {
             
-            // set their image names
-            cardOne.imageName = "card\(randomNumber)"
-            cardTwo.imageName = "card\(randomNumber)"
-        
-            // add them to the array
-            generatedCards += [cardOne, cardTwo]
+                // create two new card objects
+                let cardOne = Card()
+                let cardTwo = Card()
+                
+                // set their image names
+                cardOne.imageName = "card\(randomNumber)"
+                cardTwo.imageName = "card\(randomNumber)"
             
-            // log the random number
-            print("Random number is \(randomNumber)")
-            
-            // print the generated cards array count
-            print(generatedCards.count)
-        
-    // randomize the cards within the array
-        generatedCards.shuffle()
+                // add them to the array
+                generatedCards += [cardOne, cardTwo]
+                
+                // add this number to the list of generated numbers
+                generatedNumbers.append(randomNumber)
+                
+                // log the random number
+                print("Random number is \(randomNumber)")
+                
+                // print the generated cards array count
+                print(generatedCards.count)
+            }
         }
+    
+    // Randomize the cards within the array
+            generatedCards.shuffle()
         
-    // return the array
+    // Return the array
         return generatedCards
     }
 }
